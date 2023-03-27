@@ -1,8 +1,9 @@
 package data_structures.dynamic_array
 
-class DynamicArray<T>(capacity: Int) : Iterable<T?> {
+@Suppress("UNCHECKED_CAST")
+class DynamicArray<T : Any>(capacity: Int) : Iterable<T?> {
 
-    private lateinit var array: Array<T?>
+    private var array: Array<Any?>
 
     private var length = 0
 
@@ -10,15 +11,15 @@ class DynamicArray<T>(capacity: Int) : Iterable<T?> {
 
     init {
         if (capacity < 0) {
-            throw IllegalArgumentException("Illegal capacity $capactiy")
+            throw IllegalArgumentException("Illegal capacity $capacity")
         }
 
         this.capacity = capacity
 
-        array = arrayOfNulls<T>(capacity)
+        array = arrayOfNulls<Any?>(capacity)
     }
     fun isEmpty() = (length == 0)
-    fun get(index:Int): T? = array[index]
+    fun get(index:Int): T? = array[index] as T?
     fun set(index:Int, element: T) {
         array[index] = element
     }
@@ -43,9 +44,9 @@ class DynamicArray<T>(capacity: Int) : Iterable<T?> {
             capacity *=2
         }
 
-        val newArray = arrayOfNulls<T>(capacity)
+        val newArray = arrayOfNulls<Any?>(capacity)
 
-        for (i in 0.until(capacity)) {
+        for (i in 0.until(length)) {
             newArray[i] = array[i]
         }
 
@@ -57,7 +58,7 @@ class DynamicArray<T>(capacity: Int) : Iterable<T?> {
             var index =0
             override fun hasNext() = index < length
 
-            override fun next() :T? =  array[index++]
+            override fun next() :T? =  array[index++] as T?
         }
     }
 
