@@ -1,9 +1,10 @@
 package data_structures.dynamic_array
 
 import java.lang.IndexOutOfBoundsException
+import java.lang.StringBuilder
 
 @Suppress("UNCHECKED_CAST")
-class DynamicArray<T : Any>(capacity: Int) : Iterable<T?> {
+class DynamicArray<T : Any>(capacity: Int = 10) : Iterable<T?> {
 
     private var array: Array<Any?>
 
@@ -55,8 +56,8 @@ class DynamicArray<T : Any>(capacity: Int) : Iterable<T?> {
         array = newArray
     }
 
-    fun removeAt(index: Int): T {
-        if (index < 0 || index >= length) {
+    private fun removeAt(index: Int): T {
+        if (index < 0 && index >= length) {
             throw IndexOutOfBoundsException()
         }
         val data: T = array[index] as T
@@ -83,7 +84,7 @@ class DynamicArray<T : Any>(capacity: Int) : Iterable<T?> {
         }
         return false
     }
-    fun indexOf(element: T): Int {
+    private fun indexOf(element: T): Int {
         for (i in 0.until(length)) {
             if (array[i] == element) {
                 return i
@@ -101,6 +102,19 @@ class DynamicArray<T : Any>(capacity: Int) : Iterable<T?> {
 
             override fun next() :T? =  array[index++] as T?
         }
+    }
+
+    override fun toString(): String {
+        return if (length == 0) {
+            "[]"
+        } else {
+            val builder = StringBuilder()
+            for (i in 0.until(length-1)) {
+                builder.append(array[i].toString() + ", ")
+            }
+            "[${builder.append(array[length-1])}]"
+        }
+
     }
 
 }
