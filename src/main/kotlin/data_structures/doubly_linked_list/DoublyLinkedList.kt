@@ -1,23 +1,47 @@
 package data_structures.doubly_linked_list
 
 
-class DoublyLinkedList<T> : Iterable<T>{
+class DoublyLinkedList<T> : Iterable<T> {
     var size = 0
         private set
 
-    private lateinit var head: Node<T>
-    private lateinit var tail: Node<T>
+    private var head: Node<T>? = null
+    private var tail: Node<T>? = null
 
     fun clear() {
-        TODO()
+        var trav = head
+        while (trav != null) {
+            val nextNode = trav.next
+            trav.data = null
+            trav.previous = null
+            trav.next = null
+            trav = nextNode
+        }
+        head = null
+        tail = null
+        size = 0
     }
 
     fun addFirst(element: T) {
-        TODO()
+        if (isEmpty()) {
+            head = Node(data = element)
+            tail = Node(data = element)
+        } else {
+            head?.previous = Node(data = element, next = head)
+            head = head?.previous
+        }
+        size++
     }
 
-    fun addLast(element: T) {
-        TODO()
+    fun add(element: T) {
+        if (isEmpty()) {
+            head = Node(data = element)
+            tail = Node(data = element)
+        } else {
+            tail?.next = Node(data = element, previous = tail)
+            tail = tail?.next
+        }
+        size++
     }
 
     fun removeFirst(): T {
@@ -28,35 +52,42 @@ class DoublyLinkedList<T> : Iterable<T>{
         TODO()
     }
 
-    fun peekFirst() : T {
+    fun peekFirst(): T {
         TODO()
     }
 
-    fun peekLast() : T {
+    fun peekLast(): T {
         TODO()
     }
 
-    fun add(element:T) {
+
+
+    fun remove(node: Node<T>): T {
+        TODO()
+    }
+    fun remove(element: T): Boolean {
+        TODO()
+    }
+    fun removeAt(index: Int): T {
         TODO()
     }
 
-    fun remove(node: Node<T>):T  {
-        TODO()
+
+
+    fun indexOf(element: T): Int {
+        var trav = head
+        var index = 0
+        while (trav != null) {
+            if (trav.data == element) {
+                return index
+            }
+            trav = trav.next
+            index++
+        }
+        return -1
     }
 
-    fun removeAt(index: Int) : T {
-        TODO()
-    }
-
-    fun remove(element: T) : Boolean {
-        TODO()
-    }
-
-    fun indexOf(element: T) : Int {
-        TODO()
-    }
-
-    fun contains(element: T) : Int {
+    fun contains(element: T): Int {
         TODO()
     }
 
