@@ -1,5 +1,7 @@
 package data_structures.doubly_linked_list
 
+import java.lang.RuntimeException
+
 
 class DoublyLinkedList<T> : Iterable<T> {
     var size = 0
@@ -53,11 +55,19 @@ class DoublyLinkedList<T> : Iterable<T> {
     }
 
     fun peekFirst(): T {
-        TODO()
+        if (isEmpty()) {
+            throw RuntimeException("Empty List")
+        } else {
+            return head?.data as T
+        }
     }
 
     fun peekLast(): T {
-        TODO()
+        if (isEmpty()) {
+            throw RuntimeException("Empty List")
+        } else {
+            return tail?.data as T
+        }
     }
 
 
@@ -87,8 +97,8 @@ class DoublyLinkedList<T> : Iterable<T> {
         return -1
     }
 
-    fun contains(element: T): Int {
-        TODO()
+    fun contains(element: T): Boolean {
+        return indexOf(element) !=-1
     }
 
     fun isEmpty() = size == 0
