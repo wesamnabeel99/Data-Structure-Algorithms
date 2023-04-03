@@ -108,8 +108,14 @@ class DoublyLinkedList<T> : Iterable<T> {
 
 
     override fun toString(): String {
-        TODO()
-        return super.toString()
+        val builder = StringBuilder()
+        var trav = head
+
+        while (trav != null) {
+            builder.append(trav.data)
+            trav = trav.next
+        }
+        return "[$builder]"
     }
 
 }
